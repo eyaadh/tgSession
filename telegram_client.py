@@ -1,8 +1,10 @@
 from telethon import TelegramClient
+from dotenv import load_dotenv
 import os
 
-API_ID = int(os.getenv('api_id'))
-API_HASH = os.getenv('api_hash')
+load_dotenv()
+API_ID = int(os.getenv('API_ID'))
+API_HASH = os.getenv('API_HASH')
 
 
 SESSION_DIR = "sessions"
