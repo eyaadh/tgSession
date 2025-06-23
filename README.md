@@ -1,6 +1,6 @@
 # Telegram Session Hijacking Demo (Educational)
 
-This project is a demonstration of a Telegram session hijacking technique, designed to illustrate the concepts of phishing, overcoming multi-factor authentication (MFA), and session hijacking. It's built as a part of a [blog post](YOUR_BLOG_POST_LINK_HERE) to educate users on how such attacks are carried out and why even MFA-enabled accounts can be vulnerable to social engineering.
+This project is a demonstration of a Telegram session hijacking technique, designed to illustrate the concepts of phishing, overcoming multi-factor authentication (MFA), and session hijacking. It's built as a part of a [blog post](http://blog.eyaadh.net/2025/06/hey-everyone-long-time-no-see-right-so.html) to educate users on how such attacks are carried out and why even MFA-enabled accounts can be vulnerable to social engineering.
 
 **Disclaimer:** This project is for **educational and research purposes only**. Do not use it for any malicious or illegal activities. Unauthorized access to computer systems or accounts is illegal and unethical.
 
